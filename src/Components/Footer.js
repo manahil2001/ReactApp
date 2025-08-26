@@ -2,10 +2,12 @@
 
 export default function Footer() {
   return (
-    <section>
-      <p>
-                ©Copyright 2025. All rights are reserved.
-            </p>
-    </section>
+    <footer className="footer">
+      <p>&copy; {new Date().getFullYear()} Little Lemon. All rights reserved.</p>
+      <ul className="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </footer>
   );
 }
