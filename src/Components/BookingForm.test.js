@@ -73,7 +73,7 @@ describe("BookingForm", () => {
     expect(button).toBeEnabled();
   });
 
-  // 🔹 Error messages (React validation)
+  //Error messages (React validation)
   test("Shows error when name is too short", () => {
     renderForm();
     fireEvent.change(screen.getByLabelText(/Name:/i), {

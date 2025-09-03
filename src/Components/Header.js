@@ -1,5 +1,5 @@
 // Header.js
-
+import { Link } from 'react-router-dom';
 export default function Header() {
   return (
     <header className="home-container">
@@ -10,7 +10,9 @@ export default function Header() {
           <h1>Welcome to Little Lemon</h1>
           <h2>Fresh Mediterranean flavors, served with love.</h2>
           <p>Experience authentic cuisine in a warm and inviting atmosphere. Join us for a taste of tradition with a modern twist.</p>
+          <Link to="/booking">
           <button className="cta-btn">Reserve a Table</button>
+          </Link>
         </div>
       </section>
 
@@ -40,7 +42,9 @@ export default function Header() {
       <section className="cta">
         <h5>Ready for a Flavor Adventure?</h5>
         <p>Book your table today and indulge in the Mediterranean experience.</p>
+        <Link to="/booking">
         <button className="cta-btn">Book Now</button>
+        </Link>
       </section>
     </header>
   );

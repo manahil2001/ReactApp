@@ -1,12 +1,14 @@
 //Contact
 
+import { Link } from 'react-router-dom';
+
 export default function Contact() {
   return (
     <section id="contact">
       <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba" alt="Map" class="contact-image"></img>
       <h1>Contact Us</h1>
       <p>
-        We’d love to hear from you! Whether you have a question about our menu, 
+        We’d love to hear from you! Whether you have a question about our menu,
         reservations, or anything else, our team is ready to help.
       </p>
 
