@@ -1,5 +1,5 @@
 // src/Components/BookingForm.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function BookingForm({ availableTimes, dispatch, onSubmit }) {
   const [name, setName] = useState("");
@@ -8,8 +8,46 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("");
 
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!name || name.length < 2) {
+      newErrors.name = "Name must be at least 2 characters long.";
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    if (!date || date < today) {
+      newErrors.date = "Please select today or a future date.";
+    }
+
+    if (!time) {
+      newErrors.time = "Please select a time.";
+    }
+
+    if (guests < 1 || guests > 10) {
+      newErrors.guests = "Guests must be between 1 and 10.";
+    }
+
+    if (!occasion) {
+      newErrors.occasion = "Please select an occasion.";
+    }
+
+    setErrors(newErrors);
+    setIsFormValid(Object.keys(newErrors).length === 0);
+  };
+
+  // Re-run validation whenever form fields change
+  useEffect(() => {
+    validateForm();
+  }, [name, date, time, guests, occasion]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isFormValid) return;
 
     const formData = {
       name,
@@ -34,7 +72,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
 
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
-      <h3>Reserve a Table</h3>
+      <h1>Reserve a Table</h1>
 
       {/* Name input */}
       <label htmlFor="name">Name:
@@ -42,9 +80,11 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
         type="text"
         id="name"
         value={name}
+        minLength={2}
         onChange={(e) => setName(e.target.value)}
         required
       />
+      {errors.name && <span className="error">{errors.name}</span>}
       </label>
       {/* Date input */}
       <label htmlFor="date">Date:
@@ -58,6 +98,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
         }}
         required
       />
+      {errors.date && <span className="error">{errors.date}</span>}
       </label>
       {/* Time select */}
       <label htmlFor="time">Time:
@@ -74,6 +115,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
           </option>
         ))}
       </select>
+      {errors.time && <span className="error">{errors.time}</span>}
       </label>
 
       {/* Guests input */}
@@ -87,6 +129,7 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
         onChange={(e) => setGuests(e.target.value)}
         required
       />
+      {errors.guests && <span className="error">{errors.guests}</span>}
       </label>
 
       {/* Occasion select */}
@@ -102,9 +145,10 @@ function BookingForm({ availableTimes, dispatch, onSubmit }) {
         <option value="Anniversary">Anniversary</option>
         <option value="Other">Other</option>
       </select>
+      {errors.occasion && <span className="error">{errors.occasion}</span>}
       </label>
 
-      <button type="submit">Book Now</button>
+      <button type="submit" disabled={!isFormValid}>Book Now</button>
     </form>
   );
 }

@@ -9,6 +9,7 @@ import Menu from "./Components/Menu";
 import BookingPage from "./Components/BookingPage";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
+import Help from "./Components/Help";
 import ConfirmedBooking from "./Components/ConfirmedBooking";
 
 import { initializeTimes, updateTimes } from "./AppFunctions";
@@ -62,6 +63,7 @@ function App() {
         <Route path="/confirmed" element={<ConfirmedBooking />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Help/>
       <Footer />
     </>
   );
